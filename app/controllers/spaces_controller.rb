@@ -5,37 +5,9 @@ class SpacesController < ApplicationController
   def index
     @spaces = Space.all
 
-    render json: @spaces
-  end
+    response_body = { sys: { type: 'Array' }, total: @spaces.count, skip: 0, limit: @spaces.count, items: @spaces }
 
-  # GET /spaces/1
-  def show
-    render json: @space
-  end
-
-  # POST /spaces
-  def create
-    @space = Space.new(space_params)
-
-    if @space.save
-      render json: @space, status: :created, location: @space
-    else
-      render json: @space.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /spaces/1
-  def update
-    if @space.update(space_params)
-      render json: @space
-    else
-      render json: @space.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /spaces/1
-  def destroy
-    @space.destroy
+    render json: response_body
   end
 
   private
