@@ -3,9 +3,11 @@ class SpacesController < ApplicationController
 
   # GET /spaces
   def index
-    @spaces = Space.all
+    skip = params[:skip].try(:to_i) || 0
+    limit = params[:limit].try(:to_i) || 100
+    @spaces = Space.order_by('createdAt': :asc).limit(limit).offset(skip)
 
-    response_body = { sys: { type: 'Array' }, total: @spaces.count, skip: 0, limit: @spaces.count, items: @spaces }
+    response_body = { sys: { type: 'Array' }, total: @spaces.count, skip: skip, limit: limit, items: @spaces }
 
     render json: response_body
   end
