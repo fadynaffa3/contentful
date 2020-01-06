@@ -25,6 +25,13 @@ gem 'bson_ext'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'rspec-collection_matchers'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'mongoid-rspec'
 end
 
 group :development do
