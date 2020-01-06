@@ -4,7 +4,6 @@ class Space
 
   def as_json(options={})
     attrs = super(options)
-    attrs.delete("_id")
-    attrs
+    attrs['data']
   end
 end
