@@ -65,7 +65,12 @@ class ContentfulSyncService
     next_page_url = data['nextPageUrl']
     items.each do |item|
       id = item['sys']['id']
-      Space.where(id: id).first_or_create.update(data: item)
+      type = item['sys']['type']
+      if type.in?(%w[DeletedAsset DeletedEntry])
+        Space.where(id: id).destroy_all
+      else
+        Space.where(id: id).first_or_create.updte(data: item)
+      end
     end
 
     if next_page_url.present?
